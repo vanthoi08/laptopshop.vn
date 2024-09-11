@@ -11,30 +11,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 
-// @Controller
-// public class UserController {
-
-//     @RequestMapping("/")
-//     public String getHomePage(){
-//         return "hello from controller";
-//     }
-    
-// }
-
-
-@RestController
+@Controller
 public class UserController {
-    private final UserService userService;
+        private final UserService userService;
     
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+        public UserController(UserService userService) {
+            this.userService = userService;
+        }
 
-
-    @GetMapping("/")
+    @RequestMapping("/")
     public String getHomePage(){
-        return this.userService.handleHello();
+        String test = this.userService.handleHello();
+        return "eric.html";
     }
     
 }
+
+
+// @RestController
+// public class UserController {
+//     private final UserService userService;
+    
+
+//     public UserController(UserService userService) {
+//         this.userService = userService;
+//     }
+
+//     @GetMapping("/")
+//     public String getHomePage(){
+//         return this.userService.handleHello();
+//     }
+    
+// }
