@@ -32,7 +32,7 @@ public class UserController {
         return "hello";
     }
 
-    @RequestMapping("/admin/user")
+    @RequestMapping("/admin/user/create")
     public String getUserPage(Model model){
         model.addAttribute("newUser", new User());
         return "admin/user/create";
@@ -43,6 +43,11 @@ public class UserController {
         System.out.println("run here :" + u);
         this.userService.handleSaveUser(u);
         return "hello";
+    }
+
+    @RequestMapping("/admin/user")
+    public String getAllUserPage(Model model){
+        return "admin/user/table-user";
     }
 }
 
