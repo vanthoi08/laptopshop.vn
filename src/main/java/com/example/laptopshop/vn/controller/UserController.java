@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.laptopshop.vn.domain.User;
+import com.example.laptopshop.vn.repository.UserRepository;
 import com.example.laptopshop.vn.service.UserService;
 
 
@@ -38,6 +39,7 @@ public class UserController {
     @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
     public String createUserPage(Model model, @ModelAttribute("newUser") User u){
         System.out.println("run here :" + u);
+        this.userService.handleSaveUser(u);
         return "hello";
     }
 }
