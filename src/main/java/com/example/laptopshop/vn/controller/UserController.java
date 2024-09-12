@@ -2,6 +2,7 @@ package com.example.laptopshop.vn.controller;
 
 import java.util.List;
 
+import org.apache.el.stream.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -56,6 +57,8 @@ public class UserController {
     @GetMapping("/admin/user/{id}")
     public String getUserDetailPage(Model model, @PathVariable long id) {
         System.out.println("check path id = "+id);
+         User user = this.userService.getUserById(id);
+        model.addAttribute("user", user);
         model.addAttribute("id", id);
         return "admin/user/show";
 
