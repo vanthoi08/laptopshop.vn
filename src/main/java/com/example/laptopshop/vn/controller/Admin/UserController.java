@@ -1,8 +1,7 @@
-package com.example.laptopshop.vn.controller;
+package com.example.laptopshop.vn.controller.Admin;
 
 import java.util.List;
 
-import org.apache.el.stream.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.laptopshop.vn.domain.User;
 import com.example.laptopshop.vn.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -54,16 +51,15 @@ public class UserController {
     public String getAllUserPage(Model model){
         List<User> users = this.userService.getAllUsers();
         model.addAttribute("listUser", users);
-        return "admin/user/table-user";
+        return "admin/user/show";
     }
 
     @GetMapping("/admin/user/{id}")
     public String getUserDetailPage(Model model, @PathVariable long id) {
-        System.out.println("check path id = "+id);
          User user = this.userService.getUserById(id);
         model.addAttribute("user", user);
         model.addAttribute("id", id);
-        return "admin/user/show";
+        return "admin/user/detail";
     }
     @GetMapping("/admin/user/update/{id}")
     public String getUpdateUserPage(Model model, @PathVariable long id) {

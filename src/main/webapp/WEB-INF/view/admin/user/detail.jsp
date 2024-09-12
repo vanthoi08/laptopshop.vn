@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="Dự án laptopshop" />
     <meta name="author" content="Thời" />
-    <title>Delete User</title>
+    <title>Detail User</title>
     <link href="/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -30,24 +30,30 @@
                         <li class="breadcrumb-item active">Users</li>
                     </ol>
                     <div class="mt-5">
+
                         <div class="row">
                             <div class="col-12 mx-auto">
-                                <h3>Delete user with id = ${id}</h3>
-                                <hr />
-                                <div class="alert alert-danger" role="alert">
-                                    Are you sure to delete this user ?
+                                <div  class="d-flex justify-content-between">
+                                    <h3>User Detail with id= ${id}</h3>
                                 </div>
-                                <form:form  method="post"  action="/admin/user/delete" modelAttribute="newUser">
-                                    <div class="mb-3" style="display: none;">
-                                        <label  class="form-label">Id:</label>
-                                        <form:input type="text" path="id" class="form-control" value="${id}"  />
+                                <hr />
+                                <div class="card" style="width: 60%;">
+                                    <div class="card-header">
+                                        User information
                                     </div>
-                                    <button class="btn btn-danger">Confirm</button>
-                                    <a href="/admin/user" type="button" class="btn btn-secondary mx-2">Cancel</a>
-                                </form:form>
+                                    <ul class="list-group list-group-flush">
+                                      <li class="list-group-item">ID: ${user.id}</li>
+                                      <li class="list-group-item">Email: ${user.email}</li>
+                                      <li class="list-group-item">FullName:${user.fullName}</li>
+                                      <li class="list-group-item">Phone:${user.phone}</li>
+                                      <li class="list-group-item">Address:${user.address}</li>
+                                    </ul>
+                                  </div>
+                                  <a href="/admin/user" class="btn btn-success mt-3">Back</a>
                             </div>
-                         
+                
                         </div>
+                
                     </div>
                 </div>
             </main>
