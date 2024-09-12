@@ -61,8 +61,13 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("id", id);
         return "admin/user/show";
-
     }
+    @GetMapping("/admin/user/update/{id}")
+    public String getUpdateUserPage(Model model) {
+        model.addAttribute("newUser", new User());
+        return "admin/user/update";
+    }
+
     
 }
 
