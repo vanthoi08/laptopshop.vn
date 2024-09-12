@@ -30,7 +30,6 @@
                         <li class="breadcrumb-item active">Users</li>
                     </ol>
                     <div class="mt-5">
-
                         <div class="row">
                             <div class="col-12 mx-auto">
                                 <div  class="d-flex justify-content-between">
@@ -49,7 +48,9 @@
                                       <li class="list-group-item">Address:${user.address}</li>
                                     </ul>
                                   </div>
-                                  <a href="/admin/user" class="btn btn-success mt-3">Back</a>
+                                  <div class="mb-5">
+                                        <a href="/admin/user" class="btn btn-success mt-3">Back</a>
+                                 </div>
                             </div>
                 
                         </div>

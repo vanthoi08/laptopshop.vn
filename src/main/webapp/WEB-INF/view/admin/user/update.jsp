@@ -56,9 +56,10 @@
                                         <label  class="form-label">Address:</label>
                                         <form:input type="text" path="address" class="form-control" />
                                     </div>
-                                    <button type="submit" class="btn btn-warning ">Update</button>
-                                    <a href="/admin/user" type="button" class="btn btn-secondary mx-2">Cancel</a>
-                
+                                    <div class="col-12 mb-5">
+                                        <button type="submit" class="btn btn-warning ">Update</button>
+                                        <a href="/admin/user" type="button" class="btn btn-secondary mx-2">Cancel</a>
+                                    </div>   
                                 </form:form>
                             </div>
                         </div>
