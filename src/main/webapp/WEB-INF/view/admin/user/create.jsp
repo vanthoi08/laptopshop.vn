@@ -14,6 +14,18 @@
     <title>Create User</title>
     <link href="/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script 
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(() => {
+        const avatarFile = $("#avatarFile");
+        avatarFile.change(function (e) {
+        const imgURL = URL.createObjectURL(e.target.files[0]);
+        $("#avatarPreview").attr("src", imgURL);
+        $("#avatarPreview").css({ "display": "block" });
+            });
+        });
+</script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -51,7 +63,7 @@
                                         <label  class="form-label">Full name:</label>
                                         <form:input type="text" path="fullName" class="form-control" />
                                     </div>
-                                    <div class="mb-3 col-12 col-md-6">
+                                    <div class="mb-3 col-12">
                                         <label  class="form-label">Address:</label>
                                         <form:input type="text" path="address" class="form-control" />
                                     </div>
@@ -66,7 +78,7 @@
                                         <label for="avatarFile" class="form-label">Avatar:</label>
                                         <input class="form-control" type="file" id="avatarFile" accept=".pnp, .jpg, .jpeg">
                                     </div>
-                                    <div>
+                                    <div class="col-12 mb-3">
                                         <img style="max-height: 250px; display: none;" alt="avatar preview" id="avatarPreview" />
                                     </div>
                                     <div class="col-12 mb-5">
