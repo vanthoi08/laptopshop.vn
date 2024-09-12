@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.laptopshop.vn.domain.User;
-import com.example.laptopshop.vn.repository.UserRepository;
 import com.example.laptopshop.vn.service.UserService;
 
 
@@ -27,7 +26,6 @@ public class UserController {
     @RequestMapping("/")
     public String getHomePage(Model model){
         List<User> arrUsers = this.userService.getAllUsersByEmail("nv6@gamil.com");
-        System.out.println(arrUsers.size());
         model.addAttribute("test", "from controller with model");
         return "hello";
     }
@@ -40,13 +38,14 @@ public class UserController {
 
     @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
     public String createUserPage(Model model, @ModelAttribute("newUser") User u){
-        System.out.println("run here :" + u);
         this.userService.handleSaveUser(u);
-        return "hello";
+        return "redirect:/admin/user";
     }
 
     @RequestMapping("/admin/user")
     public String getAllUserPage(Model model){
+        List<User> users = this.userService.getAllUsers();
+        model.addAttribute("listUser", users);
         return "admin/user/table-user";
     }
 }
