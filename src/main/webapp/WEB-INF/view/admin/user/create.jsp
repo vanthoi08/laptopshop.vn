@@ -43,6 +43,8 @@
                         <form:input type="text" path="address" class="form-control" />
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="/admin/user" type="button" class="btn btn-secondary mx-2">Cancel</a>
+
                 </form:form>
             </div>
         </div>

@@ -14,6 +14,9 @@ import com.example.laptopshop.vn.domain.User;
 import com.example.laptopshop.vn.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -63,9 +66,24 @@ public class UserController {
         return "admin/user/show";
     }
     @GetMapping("/admin/user/update/{id}")
-    public String getUpdateUserPage(Model model) {
-        model.addAttribute("newUser", new User());
+    public String getUpdateUserPage(Model model, @PathVariable long id) {
+        User currentUser = this.userService.getUserById(id);
+        model.addAttribute("newUser", currentUser);
         return "admin/user/update";
+    }
+
+    @PostMapping ("/admin/user/update")
+    public String postUpdateUser(Model model,@ModelAttribute("newUser") User u) {
+        User currentUser = this.userService.getUserById(u.getId());
+        if(currentUser !=null){
+          currentUser.setAddress(u.getAddress());
+          currentUser.setFullName(u.getFullName());
+          currentUser.setPhone(u.getPhone());
+          // save to data base
+          this.userService.handleSaveUser(currentUser);
+        }
+        return "redirect:/admin/user";
+
     }
 
     
