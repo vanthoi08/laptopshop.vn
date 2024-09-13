@@ -100,17 +100,28 @@ public class UserController {
     }
 
     @PostMapping ("/admin/user/update")
-    public String postUpdateUser(Model model,@ModelAttribute("newUser") User u,
+    public String postUpdateUser(Model model,@ModelAttribute("newUser") @Valid User u, BindingResult newUseBindingResult,
                             @RequestParam("imgFile") MultipartFile file) {
+            List<FieldError> errors = newUseBindingResult.getFieldErrors();
+            for (FieldError error : errors ) {
+            System.out.println (">>>"+error.getField() + " - " + error.getDefaultMessage());
+            }
+          // validate
+          if (newUseBindingResult.hasFieldErrors("fullName")) {
+            return "admin/user/update";
+        }                        
         User currentUser = this.userService.getUserById(u.getId());
         if(currentUser !=null){
-          currentUser.setAddress(u.getAddress());
-          currentUser.setFullName(u.getFullName());
-          currentUser.setPhone(u.getPhone());
-          currentUser.setRole(this.userService.getRoleByName(u.getRole().getName()));
+                // update new image
+                if (!file.isEmpty()) {
+                    String img = this.uploadService.handleSaveUploadFile(file, "avatar");
+                    currentUser.setAvatar(img);
+                }
+                currentUser.setAddress(u.getAddress());
+                currentUser.setFullName(u.getFullName());
+                currentUser.setPhone(u.getPhone());
+                currentUser.setRole(this.userService.getRoleByName(u.getRole().getName()));
 
-            String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
-            currentUser.setAvatar(avatar);
           // save to data base
           this.userService.handleSaveUser(currentUser);
         }
@@ -129,6 +140,7 @@ public class UserController {
         this.userService.deleteUser(u.getId());
         return "redirect:/admin/user";
     }
+
 
     
 }

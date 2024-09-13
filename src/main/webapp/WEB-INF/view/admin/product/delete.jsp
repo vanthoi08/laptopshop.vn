@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="Dự án laptopshop" />
     <meta name="author" content="Thời" />
-    <title>Detail User</title>
+    <title>Delete Product</title>
     <link href="/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -24,42 +24,31 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Manage Users</h1>
+                    <h1 class="mt-4">Manage Products</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                        <li class="breadcrumb-item active"><a href="/admin/user">Users</a></li>
-                        <li class="breadcrumb-item">>View</li>
-
-
+                        <li class="breadcrumb-item active"><a href="/admin/product">Product</a></li>
+                        <li class="breadcrumb-item">Delete</li>
                     </ol>
                     <div class="mt-5">
                         <div class="row">
                             <div class="col-12 mx-auto">
-                                <div  class="d-flex justify-content-between">
-                                    <h3>User Detail with id= ${id}</h3>
-                                </div>
+                                <h3>Delete product with id = ${id}</h3>
                                 <hr />
-                                <div class="card" style="width: 60%;">
-                                    <div class="card-header">
-                                        User information
+                                <div class="alert alert-danger" role="alert">
+                                    Are you sure to delete this product ?
+                                </div>
+                                <form:form  method="post"  action="/admin/product/delete" modelAttribute="newProduct">
+                                    <div class="mb-3" style="display: none;">
+                                        <label  class="form-label">Id:</label>
+                                        <form:input type="text" path="id" class="form-control" value="${id}"  />
                                     </div>
-                                    <img class="card-img-top" src="/images/avatar/${user.avatar}" />
-                                    <ul class="list-group list-group-flush">
-                                      <li class="list-group-item">ID: ${user.id}</li>
-                                      <li class="list-group-item">Email: ${user.email}</li>
-                                      <li class="list-group-item">FullName:${user.fullName}</li>
-                                      <li class="list-group-item">Role:${user.role.name}</li>
-                                      <li class="list-group-item">Phone:${user.phone}</li>
-                                      <li class="list-group-item">Address:${user.address}</li>
-                                    </ul>
-                                  </div>
-                                  <div class="mb-5">
-                                        <a href="/admin/user" class="btn btn-success mt-3">Back</a>
-                                 </div>
+                                    <button class="btn btn-danger">Confirm</button>
+                                    <a href="/admin/product" type="button" class="btn btn-secondary mx-2">Cancel</a>
+                                </form:form>
                             </div>
-                
+                         
                         </div>
-                
                     </div>
                 </div>
             </main>

@@ -46,7 +46,8 @@
                     <h1 class="mt-4">Manage Users</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Users</li>
+                        <li class="breadcrumb-item active"><a href="/admin/user">Users</a></li>
+                        <li class="breadcrumb-item">Update</li>
                     </ol>
                     <div class="mt-5">
                         <div class="row">
@@ -69,8 +70,12 @@
                                         <form:input type="text" path="phone" class="form-control" />
                                     </div>
                                     <div class="mb-3">
+                                        <c:set var="errorFullName">
+                                            <form:errors path="fullName" cssClass="invalid-feedback"/>
+                                        </c:set>
                                         <label  class="form-label">Full name:</label>
-                                        <form:input type="text" path="fullName" class="form-control" />
+                                        <form:input type="text" path="fullName" class="form-control ${not empty errorFullName ? 'is-invalid':'' }" />
+                                        ${errorFullName}
                                     </div>
                                 
                                     <div class="mb-3">

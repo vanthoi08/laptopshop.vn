@@ -10,13 +10,19 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="" />
                 <meta name="author" content="" />
-                <title>Create Product</title>
+                <title>Update Product</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
                 <script>
                     $(document).ready(() => {
                         const avatarFile = $("#avatarFile");
+                        const orgImage = "${newProduct.image}";
+                        if (orgImage) {
+                            const urlImage = "/images/product/" + orgImage;
+                            $("#avatarPreview").attr("src", urlImage);
+                            $("#avatarPreview").css({ "display": "block" });
+                        }
                         avatarFile.change(function (e) {
                             const imgURL = URL.createObjectURL(e.target.files[0]);
                             $("#avatarPreview").attr("src", imgURL);
@@ -37,7 +43,8 @@
                                 <h1 class="mt-4">Products</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item active"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Product</li>
+                                    <li class="breadcrumb-item active"><a href="/admin/product">Product</a></li>
+                                    <li class="breadcrumb-item active">Update</li>
                                 </ol>
                                 <div class="mt-3">
                                     <div class="row">
@@ -46,63 +53,70 @@
                                                 modelAttribute="newProduct" class="row g-2"
                                                 enctype="multipart/form-data">
                                                 <!-- khai báo biến -->
-                                             
+                                                <c:set var="errorName">
+                                                    <form:errors path="name" cssClass="invalid-feedback" />
+                                                </c:set>
 
-                                             
+                                                <c:set var="errorPrice">
+                                                    <form:errors path="price" cssClass="invalid-feedback" />
+                                                </c:set>
 
-                                          
+                                                <c:set var="errordetailDesc">
+                                                    <form:errors path="detailDesc" cssClass="invalid-feedback" />
+                                                </c:set>
 
-                                               
+                                                <c:set var="errorShortDesc">
+                                                    <form:errors path="shortDesc" cssClass="invalid-feedback" />
+                                                </c:set>
 
-                                          
-                                                <h3>Create a product</h3>
+                                                <c:set var="errorQuantity">
+                                                    <form:errors path="quantity" cssClass="invalid-feedback" />
+                                                </c:set>
+
+
+                                                <h3>Update a product</h3>
                                                 <hr>
                                                 <div class="col-md-6  col-12">
-                                                    <c:set var="errorName">
-                                                        <form:errors path="name" cssClass="invalid-feedback" />
-                                                    </c:set>
+
                                                     <label for="name" class="form-label">Name:</label>
-                                                    <form:input type="text" class="form-control ${not empty errorName ? 'is-invalid' : '' }" id="name"
-                                                        path="name" />
-                                                     ${errorName}
+                                                    <form:input type="text"
+                                                        class="form-control ${not empty errorName ? 'is-invalid' : ''}"
+                                                        id="name" path="name" />
+                                                    ${errorName}
                                                 </div>
                                                 <div class="col-md-6  col-12">
-                                                    <c:set var="errorPrice">
-                                                        <form:errors path="price" cssClass="invalid-feedback" />
-                                                    </c:set>
+
                                                     <label for="price" class="form-label">Price:</label>
-                                                    <form:input type="number" class="form-control ${not empty errorPrice ? 'is-invalid' : '' }" id="price"
-                                                        path="price" />
-                                                        ${errorPrice}
+                                                    <form:input type="number"
+                                                        class="form-control ${not empty errorName ? 'is-invalid' : ''}"
+                                                        id="price" path="price" />
+                                                    ${errorPrice}
                                                 </div>
                                                 <div class=" col-12">
-                                                    <c:set var="errordetailDesc">
-                                                        <form:errors path="detailDesc" cssClass="invalid-feedback" />
-                                                    </c:set>
-                                                    <label for="detailDesc" class="form-label ${not empty errordetailDesc ? 'is-invalid' : '' }">Detail
-                                                        description:</label>
+
+                                                    <label for="detailDesc"
+                                                        class="form-label  ${not empty errordetailDesc ? 'is-invalid' : ''}">
+                                                        Detail description:</label>
                                                     <form:textarea rows="3" cols="63" id="detailDesc"
                                                         path="detailDesc" />
-                                                        ${errordetailDesc}
+                                                    ${errordetailDesc}
                                                 </div>
                                                 <div class="col-md-6  col-12">
-                                                    <c:set var="errorShortDesc">
-                                                        <form:errors path="shortDesc" cssClass="invalid-feedback" />
-                                                    </c:set>
+
                                                     <label for="shortDesc" class="form-label">Short description:</label>
-                                                    <form:input type="text" class="form-control ${not empty errorShortDesc ? 'is-invalid' : '' }" id="shortDesc"
-                                                        path="shortDesc" />
-                                                        ${errorShortDesc}
+                                                    <form:input type="text"
+                                                        class="form-control  ${not empty errorShortDesc ? 'is-invalid' : ''}"
+                                                        id="shortDesc" path="shortDesc" />
+                                                    ${errorShortDesc}
                                                 </div>
 
                                                 <div class="col-md-6 col-12">
-                                                    <c:set var="errorQuantity">
-                                                        <form:errors path="quantity" cssClass="invalid-feedback" />
-                                                    </c:set> 
+
                                                     <label for="quantity" class="form-label">Quantity:</label>
-                                                    <form:input type="number" class="form-control ${not empty errorQuantity ? 'is-invalid' : '' }" id="quantity"
-                                                        path="quantity" />
-                                                        ${errorQuantity}
+                                                    <form:input type="number"
+                                                        class="form-control ${not empty errorQuantity ? 'is-invalid' : ''}"
+                                                        id="quantity" path="quantity" />
+                                                    ${errorQuantity}
                                                 </div>
                                                 <div class="col-md-6  col-12">
                                                     <label for="inputRole" class="form-label">Factory:</label>
@@ -135,12 +149,12 @@
                                                     <input class="form-control" type="file" id="avatarFile"
                                                         accept=".png, .jpg, .jpeg" name="imgFile" />
                                                 </div>
-                                                <div class="col-12 mt-3 mb-3 ">
+                                                <div class="col-12 ">
                                                     <img style="max-height: 250px; display: none;" alt="avatar preview"
                                                         id="avatarPreview" />
                                                 </div>
-                                                <div class="col-12 mt-5 mb-3">
-                                                    <button type="submit" class="btn btn-primary">Create</button>
+                                                <div class="col-12 mt-5 mb-5">
+                                                    <button type="submit" class="btn btn-primary">Update</button>
                                                     <a href="/admin/product"><button type="button"
                                                             class="btn btn-secondary mx-3">Cancel</button></a>
                                                 </div>

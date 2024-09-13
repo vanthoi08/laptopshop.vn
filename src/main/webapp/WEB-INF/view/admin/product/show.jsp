@@ -48,20 +48,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       
+                                        <c:forEach var="p" items="${listProduct}">
                                         <tr>
-                                            <th scope="row"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>${p.id}</td>
+                                            <td>${p.name}</td>
+                                            <td>${p.price}</td>
+                                            <td>${p.factory}</td>
                                             <td>
-                                                <a href=""><button class="btn btn-success">View</button></a>
-                                                <a href=""><button
+                                                <a href="/admin/product/${p.id}"><button class="btn btn-success">View</button></a>
+                                                <a href="/admin/product/update/${p.id}"><button
                                                         class="btn btn-warning mx-2">Update</button></a>
-                                                <a href=""><button class="btn btn-danger">Delete</button></a>
+                                                <a href="/admin/product/delete/${p.id}"><button class="btn btn-danger">Delete</button></a>
                                             </td>
                                         </tr>
-                                  
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
