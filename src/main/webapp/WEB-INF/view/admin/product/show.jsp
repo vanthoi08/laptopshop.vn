@@ -28,6 +28,45 @@
                         <li class="breadcrumb-item active">Products</li>
                     </ol>
                     <div> Table product</div>
+                    <div class="mt-5">
+                        <div class="row">
+                            <div class="col-12 mx-auto">
+                                <div class="d-flex justify-content-between">
+                                    <h3>Table product</h3>
+                                    <a href="/admin/product/create"><button class="btn btn-primary">Create a
+                                            product</button></a>
+                                </div>
+                                <hr>
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Factory</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       
+                                        <tr>
+                                            <th scope="row"></th>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <a href=""><button class="btn btn-success">View</button></a>
+                                                <a href=""><button
+                                                        class="btn btn-warning mx-2">Update</button></a>
+                                                <a href=""><button class="btn btn-danger">Delete</button></a>
+                                            </td>
+                                        </tr>
+                                  
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </main>
         <jsp:include page="../layout/footer.jsp" />
