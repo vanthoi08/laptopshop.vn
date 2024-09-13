@@ -2,6 +2,8 @@ package com.example.laptopshop.vn.controller.Admin;
 
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,11 +24,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
+
         private final UserService userService;
         private final UploadService uploadService;
-        public UserController(UserService userService,UploadService uploadService) {
+        private final PasswordEncoder passwordEncoder;
+        public UserController(UserService userService,UploadService uploadService,PasswordEncoder passwordEncoder) {
             this.userService = userService;
             this.uploadService = uploadService;
+            this.passwordEncoder = passwordEncoder;
         }
 
     @RequestMapping("/")
@@ -48,8 +53,14 @@ public class UserController {
                 @RequestParam("imgFile") MultipartFile file){
 
             String avatar =   this.uploadService.handleSaveUploadFile(file,"avatar");
-        
-            // this.userService.handleSaveUser(u);
+            String hashPassword = this.passwordEncoder.encode(u.getPassword());
+
+            // Update password and avatar
+            u.setPassword(hashPassword);
+            u.setAvatar(avatar);
+            u.setRole(this.userService.getRoleByName(u.getRole().getName()));
+            // save
+            this.userService.handleSaveUser(u);
             return "redirect:/admin/user";
     }
 
