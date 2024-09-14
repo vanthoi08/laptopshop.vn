@@ -36,12 +36,12 @@ public class UserController {
             this.passwordEncoder = passwordEncoder;
         }
 
-    @RequestMapping("/")
-    public String getHomePage(Model model){
-        List<User> arrUsers = this.userService.getAllUsersByEmail("nv6@gamil.com");
-        model.addAttribute("test", "from controller with model");
-        return "hello";
-    }
+    // @RequestMapping("/")
+    // public String getHomePage(Model model){
+    //     List<User> arrUsers = this.userService.getAllUsersByEmail("nv6@gamil.com");
+    //     model.addAttribute("test", "from controller with model");
+    //     return "hello";
+    // }
 
     @GetMapping("/admin/user/create")
     public String getUserPage(Model model){
