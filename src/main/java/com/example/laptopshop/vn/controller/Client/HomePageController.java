@@ -2,17 +2,19 @@ package com.example.laptopshop.vn.controller.Client;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.example.laptopshop.vn.domain.Product;
+import com.example.laptopshop.vn.domain.User;
 import com.example.laptopshop.vn.domain.dto.RegisterDTO;
 import com.example.laptopshop.vn.service.ProductService;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.example.laptopshop.vn.service.UserService;
+
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -20,10 +22,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Controller
 public class HomePageController {
     private final ProductService productService;
-    
-    
-    public HomePageController(ProductService productService) {
+    private final UserService  userService;
+    private final PasswordEncoder passwordEncoder;
+
+    public HomePageController(ProductService productService,
+            UserService  userService,
+            PasswordEncoder passwordEncoder) {
         this.productService = productService;
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -40,9 +47,21 @@ public class HomePageController {
     }
     @PostMapping("/register")
     public String handleRegister(@ModelAttribute("registerUser") RegisterDTO registerDTO ) {
-        //TODO: process POST request
-        
-        return "client/auth/register";
+        User user = this.userService.registerDTOtoUser(registerDTO);
+
+        String hashPassword = this.passwordEncoder.encode(registerDTO.getPassword());
+
+        // Update password and avatar
+        user.setPassword(hashPassword);
+        user.setRole(this.userService.getRoleByName("USER"));
+        // save
+        this.userService.handleSaveUser(user);
+        return "redirect:/login";
+    }
+
+    @GetMapping("/login")
+    public String getLoginPage(Model model) {
+        return "client/auth/login";
     }
     
     
