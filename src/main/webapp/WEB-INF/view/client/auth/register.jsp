@@ -29,9 +29,13 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <form:input class="form-control" id="inputFirstName" type="text"
+                                                        <c:set var="errorFristName">
+                                                    <form:errors path="firstName" cssClass="invalid-feedback"/>
+                                                        </c:set>
+                                                        <form:input class="form-control ${not empty errorFristName ? 'is-invalid' : ''}" id="inputFirstName" type="text"
                                                          placeholder="Enter your first name" path="firstName" />
                                                         <label for="inputFirstName">First name</label>
+                                                        ${errorFristName}
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
