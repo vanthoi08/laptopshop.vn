@@ -14,6 +14,8 @@ import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
+import com.example.laptopshop.vn.service.validator.StrongPassword;
+
 
 @Entity
 @Table(name = "users")
@@ -29,6 +31,7 @@ public class User {
 
     @NotNull
     @Size(min = 2, message = "Password phải có tối thiểu 2 ký tự")
+    // @StrongPassword(message = "Password phải có 8 ký tự trở lên")
     private String password;
 
     @NotNull
