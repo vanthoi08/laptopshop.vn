@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.laptopshop.vn.domain.Product;
-import com.example.laptopshop.vn.domain.User;
 import com.example.laptopshop.vn.service.ProductService;
 import com.example.laptopshop.vn.service.UploadService;
 
@@ -49,7 +48,7 @@ public class ProductController {
                 }
               // validate
               if(newProductBindingResult.hasErrors()){
-                return "/admin/product/create";
+                return "admin/product/create";
             }
 
             String productImg = this.uploadService.handleSaveUploadFile(file, "product");

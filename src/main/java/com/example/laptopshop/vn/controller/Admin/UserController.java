@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,7 +60,7 @@ public class UserController {
 
             // validate
             if(newUseBindingResult.hasErrors()){
-                return "/admin/user/create";
+                return "admin/user/create";
             }
             //
 
