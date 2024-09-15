@@ -15,23 +15,23 @@ import com.example.laptopshop.vn.service.ProductService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import java.util.ArrayList;
 
 
 @Controller
 public class ItemController {
     private final ProductService productService;
-    
-    
+
     public ItemController(ProductService productService) {
         this.productService = productService;
     }
 
     @GetMapping("/product/{id}")
-    public String getProductDetailPage(Model model, @PathVariable long id) {
-         Product pr = this.productService.fetchProductById(id).get();
-            model.addAttribute("product", pr);
-            model.addAttribute("id", id);
-            return "client/product/detail";
+    public String getProductPage(Model model, @PathVariable long id) {
+        Product pr = this.productService.fetchProductById(id).get();
+        model.addAttribute("product", pr);
+        model.addAttribute("id", id);
+        return "client/product/detail";
     }
 
     @PostMapping("/add-product-to-cart/{id}")
@@ -48,17 +48,17 @@ public class ItemController {
 
     @GetMapping("/cart")
     public String getCartPage(Model model, HttpServletRequest request) {
-        User currentUser = new User(); // null
+        User currentUser = new User();// null
         HttpSession session = request.getSession(false);
-        long id =  (long) session.getAttribute("id");
+        long id = (long) session.getAttribute("id");
         currentUser.setId(id);
 
         Cart cart = this.productService.fetchByUser(currentUser);
 
-        List<CartDetail> cartDetails = cart.getCartDetail();
+        List<CartDetail> cartDetails = cart == null ? new ArrayList<CartDetail>() : cart.getCartDetail();
 
         double totalPrice = 0;
-        for(CartDetail cd:cartDetails){
+        for (CartDetail cd : cartDetails) {
             totalPrice += cd.getPrice() * cd.getQuantity();
         }
 
