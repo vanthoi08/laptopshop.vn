@@ -5,11 +5,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
 import com.example.laptopshop.vn.service.UserService;
 import com.example.laptopshop.vn.service.validator.CustomUserDetailsService;
@@ -42,32 +44,51 @@ public class SecurityConfiguration {
     }
 
     @Bean
-public AuthenticationSuccessHandler customSuccessHandler(){
-    return new CustomSuccessHandler();
-}
+    public AuthenticationSuccessHandler customSuccessHandler() {
+        return new CustomSuccessHandler();
+    }
 
+    @Bean
+    public SpringSessionRememberMeServices rememberMeServices() {
+        SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices();
+        // optionally customize
+        rememberMeServices.setAlwaysRemember(true);
+        return rememberMeServices;
+    }
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // v6. lamda
         http
                 .authorizeHttpRequests(authorize -> authorize
-                .dispatcherTypeMatchers(DispatcherType.FORWARD,
-                    DispatcherType.INCLUDE) .permitAll()
+                        .dispatcherTypeMatchers(DispatcherType.FORWARD,
+                                DispatcherType.INCLUDE)
+                        .permitAll()
 
-                .requestMatchers("/","/login","/product/**", "/client/**", "/css/**", "/js/**", 
-                                    "/images/**").permitAll()
-                
-                .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/", "/login", "/product/**",
+                                "/client/**", "/css/**", "/js/**", "/images/**")
+                        .permitAll()
 
-                .anyRequest().authenticated())
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
 
+                        .anyRequest().authenticated())
+
+                .sessionManagement((sessionManagement) -> sessionManagement
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                        .invalidSessionUrl("/logout?expired")
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(false)) // người sau đá người trước ra
+        
+                .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
+
+                .rememberMe(r -> r.rememberMeServices(rememberMeServices()))
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .failureUrl("/login?error")
                         .successHandler(customSuccessHandler())
                         .permitAll())
-                        .exceptionHandling(ex -> ex.accessDeniedPage("/access-deny"))  ;
-                      
+                .exceptionHandling(ex -> ex.accessDeniedPage("/access-deny"));
+
         return http.build();
     }
 }

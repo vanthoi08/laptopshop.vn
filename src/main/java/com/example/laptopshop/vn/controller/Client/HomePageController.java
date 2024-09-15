@@ -15,6 +15,8 @@ import com.example.laptopshop.vn.domain.dto.RegisterDTO;
 import com.example.laptopshop.vn.service.ProductService;
 import com.example.laptopshop.vn.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,8 +43,11 @@ public class HomePageController {
     public String getHomePage(Model model) {
          List<Product> products =  this.productService.fetchProducts();
          model.addAttribute("products", products);
+     
+
         return "client/homepage/show";
     }
+
     @GetMapping("/register")
     public String getRegister(Model model) {
         model.addAttribute("registerUser", new RegisterDTO());
