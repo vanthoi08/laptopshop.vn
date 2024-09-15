@@ -15,8 +15,6 @@ import com.example.laptopshop.vn.domain.dto.RegisterDTO;
 import com.example.laptopshop.vn.service.ProductService;
 import com.example.laptopshop.vn.service.UserService;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;

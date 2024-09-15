@@ -13,7 +13,6 @@ import com.example.laptopshop.vn.repository.CartDetailRepository;
 import com.example.laptopshop.vn.repository.CartRepository;
 import com.example.laptopshop.vn.repository.ProductRepository;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Service
@@ -95,6 +94,10 @@ public class ProductService {
             }
 
         }
+    }
+
+    public Cart fetchByUser(User user){
+        return this.cartRepository.findByUser(user);
     }
 
 }
